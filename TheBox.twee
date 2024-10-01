@@ -1,0 +1,226 @@
+:: StoryTitle
+TheBox
+
+
+:: StoryData
+{
+  "ifid": "4C8EA812-5B7F-4345-96DB-18D0C44BC846",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "intro",
+  "zoom": 1
+}
+
+
+:: StoryBanner [data] {"position":"100,900","size":"100,100"}
+<<nobr>>
+<br>
+<img src="Image/BoxTitle.png" width="90%">
+<br>
+<hr>
+<</nobr>>
+
+
+:: StoryCaption [data] {"position":"100,1000","size":"100,100"}
+Created by Thom Mott for CMPM 80K @ UCSC
+
+
+:: StoryInit [data] {"position":"100,800","size":"100,100"}
+<<set $progress = 0>>
+<<set $hasTooth = false>>
+<<set $hasCoin = 0>>
+<<set $boneShard = false>>
+<<set $outsideFirstPass = false>>
+<<cacheaudio "coinPickupAudio" "Audio/CoinPickup.mp3">>
+
+
+:: coinArea {"position":"400,1200","size":"100,100"}
+<<nobr>>
+You find what appears to be a <a href="javascript:void(0)" id="coinLink" onclick="inspect('coin-details', this);">gold coin</a>.<br>
+<div id="coin-details" class="no-gap" style="display:none;">
+	Leaning in closer, you notice that its crevices are lined with dirt, though there is no dirt in this room. You wonder how it got here: to a room with no entrances?<br>
+	<br>
+    <<link "Pick it up">>
+			<<set $hasCoin to true>>
+			<<audio coinPickupAudio play>>
+			<<goto intro>>
+	<</link>><br>
+</div>
+[[Return->intro]]
+<</nobr>>
+
+
+:: coinFall {"position":"200,400","size":"100,100"}
+<<nobr>>
+<<set $hasCoin = 2>>
+You decide to throw away the coin. You hear it bounce off of a few steel beams, before becoming inaudible. After about a minute of waiting to hear it land, you decide that it either won't land, or you won't be able to hear it.<br><br>
+
+[[Return->outside]]
+<</nobr>>
+
+
+:: intro {"position":"400,900","size":"200,200"}
+<<nobr>>
+<<if $shifted > 0>>
+    <b>The walls are moving. A hatch has appeared.</b><br>
+    <br>
+    [[Open the hatch.->outside]]
+<<else>>
+    You find yourself in an orderly and plain-looking room.<br><br>
+    <<if $progress < 2>>[[You see a bookshelf->shelfArea]]<</if>><br>
+<</if>>
+
+<div class="no-gap">
+    <<if $hasCoin < 1>>[[You see a sparkle in the corner of your eye.->coinArea]]<br><</if>>
+    <<if $boneShard == false>>[[There's a bear rug just infront of you.->rug]]<br>
+<</if>>
+</div>
+<</nobr>>
+
+
+:: jump? {"position":"100,600","size":"100,100"}
+<i>That doesn't seem like a good idea.</i>
+
+[[Return->outside]]
+
+
+:: outside {"position":"300,600","size":"200,200"}
+<<nobr>>
+<<if $outsideFirstPass != true>>
+  As you open the hatch you can hear the grinding of various gears. Climbing down into the hatch you see the exposed machinery. Varoius white and yellow pannels litter the place with text that you recognise but can't understand. A blinding light grows beneath you as you decend. Before, at once, the sun greats you.<br>
+  <<set $outsideFirstPass = true>>
+<<else>>
+  The sun greats you.<br>
+<</if>>
+
+You look down an see a free-standing metal platform above a <a href="javescript:void(0)" class="hidden-link" onclick="inspect('steel-details', this);">web of steel beams</a>. You can't see any supports for the room you were just in, or the ground for that matter. As far as you can tell, the ground is either blanketed by a thick fog, or there is no ground. All around you there is only fog, the extending platform, and the whirling of gears above.<br>
+<br>
+
+<div id="steel-details" class="no-gap" style="display:none;">
+  Suddenly, an idea pops into your mind. You're not sure from where, or if it's welcome. But an idea non-the-less.
+  <br><br>
+  [[Jump down->jump?]]<br>
+</div>
+
+[[Walk down the path->path]]<br>
+<<if $hasCoin == 1>>
+[[Throw the coin->coinFall]]<br>
+<</if>>
+[[Return->intro]]<br>
+<</nobr>>
+
+
+:: path {"position":"600,600","size":"100,100"}
+<<nobr>>
+Looking back at the room you see many gears extend out of it, into the sky. It seems to be moving now. Further away from you. Or are you moving further away from it?<br>
+Up ahead the fog continues to thicken.
+<br><br>
+[[Continue.->path2]]<br>
+[[Return->outside]]<br>
+<</nobr>>
+
+
+:: path2 {"position":"800,600","size":"100,100"}
+<<nobr>>
+
+<</nobr>> 
+
+
+:: rug {"position":"700,1000","size":"100,100"}
+<<nobr>>
+A stuffed bear rug lay infront of you. There's a small missing patch of fur on the <a href="javascript:void(0)" class="hidden-link" onclick="inspect('shoulder-details', this);">left shoulder</a>. Its face is relaxed, it seems to be at peace now.
+
+<div id="shoulder-details" class="no-gap" style="display:none;">
+    <br>
+    <<if $boneShard == false>>
+    Flakes of now-dried blood break off as you move the remaining fur out of the way. All you see is fractured shoulder. There's a shard that looks large enough to take.<br>
+
+	<div id="shard-prompt">    
+      <<link "Take the shard">>
+          <<set $boneShard to true>>
+          <<script>>
+          $('#shard-prompt').toggle();
+          <</script>>
+      <</link>>
+    </div>
+	<<else>>
+     	 You took the bone shard.
+	<</if>>
+</div>
+
+<br>
+[[Return->intro]]
+<</nobr>>
+
+
+:: shelfArea {"position":"700,800","size":"100,100"}
+<<nobr>>
+A tall bookshelf sits before you. Of the labels you can read, you spot a book about "Stopping Children from Spouting Junk" and another about "Mind Fuzz". A large red and gold <a href="javascript:void(0)" onclick="inspect('rug-details', this);">persian rug</a> sits at the feeet of the bookshelf, and a dusty, but other wise undamaged vynill recliner sits dutably by.
+
+<div id="rug-details" class="no-gap" style="display:none;">
+    <br>
+    A ploom of dust rises as you fold the rug onto itself. There's a small crack in the floorboards. You could maybe pry it open.
+	
+    <<if $boneShard == true>>
+    	The <a href="javascript:void(0)" onclick="inspect('shard-prompt', this);">shard of bone</a> seems like it could fit between the floor boards.<br>
+    <<else>>
+    	<br>
+    <</if>>
+
+	<div id="shard-prompt" style="display:none;">
+        <i>Tick</i><br>
+        The walls of this place begin to move.<br>
+        <<set $shifted = true>>
+    </div>
+</div>
+
+<br>
+[[Return->intro]]
+<</nobr>>
+
+
+:: StoryScript [script]
+window.inspect = function(section, link) {
+    $(`#${section}`).show();
+    $(`#${section}`).addClass('fade-in');
+
+    // Make the link unclickable
+    link.onclick = null;
+    link.classList.remove('hidden-link');
+    link.classList.add('unclickable');
+}
+
+:: StoryStylesheet [stylesheet]
+#story-title {display:none}
+
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+		opacity: 1;
+    }
+}
+
+.no-gap {
+  margin: 0;
+  padding: 0;
+}
+
+.unclickable {
+    cursor: text;
+    color: inherit; /* Inherit the text color */
+    text-decoration: none; /* Remove underline */
+    pointer-events: none;
+}
+
+.hidden-link {
+    color: inherit; /* Inherit the text color */
+    text-decoration: none; /* Remove underline */
+    pointer-events: auto;
+}
