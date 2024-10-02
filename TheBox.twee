@@ -12,6 +12,17 @@ TheBox
 }
 
 
+:: End {"position":"1000,600","size":"100,100"}
+<<nobr>>
+Before you eventually drift away.
+<br><br><br>
+
+<div class="long-fade">
+Thank you for playing.
+</div>
+<</nobr>>
+
+
 :: StoryBanner [data] {"position":"100,900","size":"100,100"}
 <<nobr>>
 <br>
@@ -122,7 +133,51 @@ Up ahead the fog continues to thicken.
 
 :: path2 {"position":"800,600","size":"100,100"}
 <<nobr>>
+Soon your steps being to echo louder and louder.<br>
+Louder yet louder.<br>
+<br>
+<div id="next0" class="no-gap">
+	<<link "Proceed">>
+    	<<script>>
+	        defade('next1', 'next0');
+        <</script>>
+    <</link>>
+</div>
 
+<div id="next1" class="no-gap" style="display:none;">
+And yet, you keep going.<br>
+<br>
+	<div id="link1">
+	<<link "Proceed">>
+    	<<script>>
+	        defade('next2', 'link1');
+        <</script>>
+    <</link>><br>
+    </div>
+</div>
+
+<div id="next2" class="no-gap" style="display:none;">
+The fog keeps getting thicker.<br>
+<br>
+	<div id="link2">
+	<<link "Proceed">>
+    	<<script>>
+        	defade('next3', 'link2');
+            $('#return').toggle();
+        <</script>>
+    <</link>><br>
+    </div>
+</div>
+
+<div id="next3" class="no-gap" style="display:none;">
+Heavier. Yet heavier..<br>
+<br>
+	[[Proceed->End]]
+</div>
+
+<div id="return" class="no-gap">
+[[Return->path]]
+</div>
 <</nobr>> 
 
 
@@ -139,7 +194,7 @@ A stuffed bear rug lay infront of you. There's a small missing patch of fur on t
       <<link "Take the shard">>
           <<set $boneShard to true>>
           <<script>>
-          $('#shard-prompt').toggle();
+          	$('#shard-prompt').toggle();
           <</script>>
       <</link>>
     </div>
@@ -162,15 +217,19 @@ A tall bookshelf sits before you. Of the labels you can read, you spot a book ab
     A ploom of dust rises as you fold the rug onto itself. There's a small crack in the floorboards. You could maybe pry it open.
 	
     <<if $boneShard == true>>
-    	The <a href="javascript:void(0)" onclick="inspect('shard-prompt', this);">shard of bone</a> seems like it could fit between the floor boards.<br>
+    	The <<link  "bone shard">>
+        <<set $shifted to true>>
+        <<script>>
+        	$('#shard-prompt').toggle();
+        <</script>>
+        <</link>> seems like it could fit between the floor boards.<br>
     <<else>>
     	<br>
     <</if>>
 
 	<div id="shard-prompt" style="display:none;">
         <i>Tick</i><br>
-        The walls of this place begin to move.<br>
-        <<set $shifted = true>>
+        The walls of this place begin to move and a hatch breaks through the floor boards.<br>
     </div>
 </div>
 
@@ -190,6 +249,14 @@ window.inspect = function(section, link) {
     link.classList.add('unclickable');
 }
 
+window.defade = function(section, link) {
+    $(`#${section}`).show();
+    $(`#${section}`).addClass('fade-in');
+
+    // Make the link unclickable
+    $(`#${link}`).toggle();
+}
+
 :: StoryStylesheet [stylesheet]
 #story-title {display:none}
 
@@ -205,6 +272,12 @@ window.inspect = function(section, link) {
     to {
 		opacity: 1;
     }
+}
+
+.long-fade {
+  	opacity: 0;
+    animation: fadeIn 5s forwards;
+  	animation-delay: 2s;
 }
 
 .no-gap {

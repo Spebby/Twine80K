@@ -120,6 +120,12 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     }
 }
 
+.long-fade {
+  	opacity: 0;
+    animation: fadeIn 5s forwards;
+  	animation-delay: 2s;
+}
+
 .no-gap {
   margin: 0;
   padding: 0;
@@ -144,6 +150,14 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     link.onclick = null;
     link.classList.remove('hidden-link');
     link.classList.add('unclickable');
+}
+
+window.defade = function(section, link) {
+    $(`#${section}`).show();
+    $(`#${section}`).addClass('fade-in');
+
+    // Make the link unclickable
+    $(`#${link}`).toggle();
 }</script><tw-passagedata pid="1" name="intro" tags="" position="400,900" size="200,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if $shifted &gt; 0&gt;&gt;
     &lt;b&gt;The walls are moving. A hatch has appeared.&lt;/b&gt;&lt;br&gt;
@@ -184,15 +198,19 @@ A tall bookshelf sits before you. Of the labels you can read, you spot a book ab
     A ploom of dust rises as you fold the rug onto itself. There&#39;s a small crack in the floorboards. You could maybe pry it open.
 	
     &lt;&lt;if $boneShard == true&gt;&gt;
-    	The &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;inspect(&#39;shard-prompt&#39;, this);&quot;&gt;shard of bone&lt;/a&gt; seems like it could fit between the floor boards.&lt;br&gt;
+    	The &lt;&lt;link  &quot;bone shard&quot;&gt;&gt;
+        &lt;&lt;set $shifted to true&gt;&gt;
+        &lt;&lt;script&gt;&gt;
+        	$(&#39;#shard-prompt&#39;).toggle();
+        &lt;&lt;/script&gt;&gt;
+        &lt;&lt;/link&gt;&gt; seems like it could fit between the floor boards.&lt;br&gt;
     &lt;&lt;else&gt;&gt;
     	&lt;br&gt;
     &lt;&lt;/if&gt;&gt;
 
 	&lt;div id=&quot;shard-prompt&quot; style=&quot;display:none;&quot;&gt;
         &lt;i&gt;Tick&lt;/i&gt;&lt;br&gt;
-        The walls of this place begin to move.&lt;br&gt;
-        &lt;&lt;set $shifted = true&gt;&gt;
+        The walls of this place begin to move and a hatch breaks through the floor boards.&lt;br&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -210,7 +228,7 @@ A stuffed bear rug lay infront of you. There&#39;s a small missing patch of fur 
       &lt;&lt;link &quot;Take the shard&quot;&gt;&gt;
           &lt;&lt;set $boneShard to true&gt;&gt;
           &lt;&lt;script&gt;&gt;
-          $(&#39;#shard-prompt&#39;).toggle();
+          	$(&#39;#shard-prompt&#39;).toggle();
           &lt;&lt;/script&gt;&gt;
       &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
@@ -257,12 +275,63 @@ You decide to throw away the coin. You hear it bounce off of a few steel beams, 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="jump?" tags="" position="100,600" size="100,100">&lt;i&gt;That doesn&#39;t seem like a good idea.&lt;/i&gt;
 
 [[Return-&gt;outside]]</tw-passagedata><tw-passagedata pid="10" name="path2" tags="" position="800,600" size="100,100">&lt;&lt;nobr&gt;&gt;
+Soon your steps being to echo louder and louder.&lt;br&gt;
+Louder yet louder.&lt;br&gt;
+&lt;br&gt;
+&lt;div id=&quot;next0&quot; class=&quot;no-gap&quot;&gt;
+	&lt;&lt;link &quot;Proceed&quot;&gt;&gt;
+    	&lt;&lt;script&gt;&gt;
+	        defade(&#39;next1&#39;, &#39;next0&#39;);
+        &lt;&lt;/script&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+&lt;/div&gt;
 
+&lt;div id=&quot;next1&quot; class=&quot;no-gap&quot; style=&quot;display:none;&quot;&gt;
+And yet, you keep going.&lt;br&gt;
+&lt;br&gt;
+	&lt;div id=&quot;link1&quot;&gt;
+	&lt;&lt;link &quot;Proceed&quot;&gt;&gt;
+    	&lt;&lt;script&gt;&gt;
+	        defade(&#39;next2&#39;, &#39;link1&#39;);
+        &lt;&lt;/script&gt;&gt;
+    &lt;&lt;/link&gt;&gt;&lt;br&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;next2&quot; class=&quot;no-gap&quot; style=&quot;display:none;&quot;&gt;
+The fog keeps getting thicker.&lt;br&gt;
+&lt;br&gt;
+	&lt;div id=&quot;link2&quot;&gt;
+	&lt;&lt;link &quot;Proceed&quot;&gt;&gt;
+    	&lt;&lt;script&gt;&gt;
+        	defade(&#39;next3&#39;, &#39;link2&#39;);
+            $(&#39;#return&#39;).toggle();
+        &lt;&lt;/script&gt;&gt;
+    &lt;&lt;/link&gt;&gt;&lt;br&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;next3&quot; class=&quot;no-gap&quot; style=&quot;display:none;&quot;&gt;
+Heavier. Yet heavier..&lt;br&gt;
+&lt;br&gt;
+	[[Proceed-&gt;End]]
+&lt;/div&gt;
+
+&lt;div id=&quot;return&quot; class=&quot;no-gap&quot;&gt;
+[[Return-&gt;path]]
+&lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt; </tw-passagedata><tw-passagedata pid="11" name="StoryCaption" tags="data" position="100,1000" size="100,100">Created by Thom Mott for CMPM 80K @ UCSC</tw-passagedata><tw-passagedata pid="12" name="StoryBanner" tags="data" position="100,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;br&gt;
 &lt;img src=&quot;Image/BoxTitle.png&quot; width=&quot;90%&quot;&gt;
 &lt;br&gt;
 &lt;hr&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="End" tags="" position="1000,600" size="100,100">&lt;&lt;nobr&gt;&gt;
+Before you eventually drift away.
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;div class=&quot;long-fade&quot;&gt;
+Thank you for playing.
+&lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
