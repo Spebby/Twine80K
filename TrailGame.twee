@@ -8,39 +8,85 @@ TrailGame
   "format": "SugarCube",
   "format-version": "2.37.3",
   "start": "Start",
-  "zoom": 1
+  "zoom": 0.6
 }
 
 
-:: Area0 {"position":"500,3000","size":"100,100"}
+:: Bazaar {"position":"1100,100","size":"100,100"}
+Bazaar
+
+[[Outskirts]]
+
+
+:: BazaarTravel {"position":"950,350","size":"100,100"}
+<<script>>
+State.variables.encounter = randomEvent(1, ["Bazaar", "EmptyBazaar"]);
+<</script>>
+
+<<goto $encounter>>
+
+
+:: Cliff0 {"position":"1100,650","size":"100,100"}
 <<nobr>>
 <<script>>
-State.variables.encounter = randomEvent(0.25, ["E0", "E1", "E2", "E3", "E4"]);
+State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
 
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
+[[Follow the path|Cliff1]] <b>20% Risk</b>
+
 <<include "hud">>
 <</nobr>>
 
 
-:: Area1 {"position":"600,3000","size":"100,100"}
+:: Cliff1 {"position":"1300,700","size":"100,100"}
 <<nobr>>
 <<script>>
-State.variables.encounter = randomEvent(0.11, ["E3", "E5", "E6", "E8"]);
+State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
 
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
+[[Follow the path|Cliff2]] <b>20% Risk</b>
+
 <<include "hud">>
 <</nobr>>
 
 
-:: Area2 {"position":"700,3000","size":"100,100"}
+:: Cliff2 {"position":"1500,600","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Continue Along the Cliff|Village]] <b>20% Risk</b>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: CompInfo {"position":"500,900","size":"100,100"}
+Though cracked and dusty, it flickers on.
+
+describe the boot sequence.
+
+[[March onwards|Stage0]]
+
+
+:: Dunes {"position":"1225,1125","size":"100,100"}
+
+
+
+:: Dunes0 {"position":"700,900","size":"100,100"}
 <<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E8", "E9"]);
@@ -50,83 +96,133 @@ State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E8", "E9"]);
 <<include $encounter>>
 <</if>><br>
 
+[[Continue Along the Dunes|Dunes1]] <b>40% Risk</b>
+
 <<include "hud">>
 <</nobr>>
 
 
-:: Bazaar {"position":"800,2400","size":"200,200"}
+:: Dunes1 {"position":"900,1000","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.4, ["E0", "E3", "E5", "E8", "E9"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Continue Along the Dunes|Dunes2]] <b>40% Risk</b>
+[[Head down into the Valley|Valley1]] <b>10% Risk</b>
+
+<<include "hud">>
+<</nobr>>
 
 
-
-:: CompInfo {"position":"300,3000","size":"100,100"}
-Though cracked and dusty, it flickers on.
-
-describe the boot sequence.
-
-[[March onwards|Stage0]]
+:: Dunes2 {"position":"1100,1000","size":"100,100"}
+[[Plateu]] (Likely to meet the old man)
+[[Dunes]] (less likely but will learning about spring. may get lost forever)
 
 
-:: E0 {"position":"300,2200","size":"100,100"}
+:: E0 {"position":"300,100","size":"100,100"}
 Bad event 0
 -1 resources
 <<modify "items" -1>>
 
 
-:: E1 {"position":"300,2300","size":"100,100"}
+:: E1 {"position":"300,200","size":"100,100"}
 Bad event 1
 -2 resources
 <<modify "items" -2>>
 
 
-:: E2 {"position":"300,2400","size":"100,100"}
+:: E10 {"position":"500,100","size":"100,100"}
+Bad event 10
+-1 resources
+<<modify "items" -1>>
+
+
+:: E11 {"position":"500,200","size":"100,100"}
+Bad event 11
+-1 resources
+<<modify "items" -1>>
+
+
+:: E12 {"position":"500,300","size":"100,100"}
+Bad event 12
+-1 resources
+<<modify "items" -1>>
+
+
+:: E13 {"position":"500,400","size":"100,100"}
+Bad event 13
+-1 resources
+<<modify "items" -1>>
+
+
+:: E2 {"position":"300,300","size":"100,100"}
 Bad event 2
 -1 resources
 <<modify "items" -1>>
 
 
-:: E3 {"position":"300,2500","size":"100,100"}
+:: E3 {"position":"300,400","size":"100,100"}
 Bad event 3
 -4 resources
 <<modify "items" -4>>
 
 
-:: E4 {"position":"300,2600","size":"100,100"}
+:: E4 {"position":"300,500","size":"100,100"}
 Bad event 4
 -3 resources
 <<modify "items" -3>>
 
 
-:: E5 {"position":"400,2200","size":"100,100"}
+:: E5 {"position":"400,100","size":"100,100"}
 Bad event 5
 -1 resources
 <<modify "items" -1>>
 
 
-:: E6 {"position":"400,2300","size":"100,100"}
+:: E6 {"position":"400,200","size":"100,100"}
 Bad event 6
 -1 resources
 <<modify "items" -1>>
 
 
-:: E7 {"position":"400,2400","size":"100,100"}
+:: E7 {"position":"400,300","size":"100,100"}
 Bad event 7
 -1 resources
 <<modify "items" -1>>
 
 
-:: E8 {"position":"400,2500","size":"100,100"}
+:: E8 {"position":"400,400","size":"100,100"}
 Bad event 8
 -1 resources
 <<modify "items" -1>>
 
 
-:: E9 {"position":"400,2600","size":"100,100"}
+:: E9 {"position":"400,500","size":"100,100"}
 Bad event 9
 -1 resources
 <<modify "items" -1>>
 
 
-:: GetComputer {"position":"500,2800","size":"100,100"}
+:: EmptyBazaar {"position":"1100,300","size":"100,100"}
+EmptyBazaar
+
+[[Outskirts]]
+
+
+:: End0 {"position":"1600,1000","size":"100,100"}
+[[End1]]
+
+
+:: End1 {"position":"1800,1000","size":"100,100"}
+
+
+
+:: GetComputer {"position":"500,700","size":"100,100"}
 small handheld device
 it turns on
 
@@ -134,21 +230,107 @@ it turns on
 [[March Forwards|Stage0]]
 
 
-:: Stage0 {"position":"700,2800","size":"100,100"}
-As you come down into the valley, you see a Bazaar on the horizon. You can see 3 paths to it something something explanation.
+:: MountainPass {"position":"900,600","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.25, ["E0", "E1", "E2", "E3", "E4"]);
+<</script>>
 
-[[Path 1|Area0]] <b>25% Risk</b>
-[[Path 2|Area1]] <b>11% Risk</b>
-[[Path 3|Area2]] <b>60% Risk</b>
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Follow the path|Cliff0]] <b>20% Risk</b>
+[[Head Through the Ravine|Ravine]] <b>50% Risk</b>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: OldMan {"position":"800,100","size":"100,100"}
+A cloaked man stands before you.
+
+[[Who are you?|Old_Info]]
+[[Get out of my way.|Old_Agg]]
+
+
+:: Old_Agg {"position":"950,225","size":"100,100"}
+He looks at you with some sadness. In the blink of an eye he's gone.
+
+[[EmptyBazaar]] 
+<<include "hud">>
+
+
+:: Old_DontKnow {"position":"800,350","size":"100,100"}
+player: I dont know anything about that
+
+man: ah, no worries child.
+
+man fades away. Nothing else to do
+
+You see a [[Bazaar|BazaarTravel]] behind where he stood. Was it always there?
 
 <<include "hud">>
 
 
-:: Stage1 {"position":"900,2800","size":"100,100"}
-wip
+:: Old_Info {"position":"800,225","size":"100,100"}
+the man reveals self to be an old traveller
+
+says has just come from bazaar; looking for ancient spring
+
+<<if $spring>>
+[[An Ancient Spring?|Old_DontKnow]]
+<<else>>
+[[I know where you can find one.|Old_Know]]
+<</if>>
 
 
-:: Start {"position":"300,2800","size":"100,100"}
+:: Old_Know {"position":"950,100","size":"100,100"}
+
+
+[[Bazaar]]
+
+
+:: Outskirts {"position":"1300,200","size":"100,100"}
+outskirts of bazaar
+
+
+[[Where does this trail go?|Valley2]] <b>60% Risk</b>
+
+
+:: Plateu {"position":"1100,1125","size":"100,100"}
+
+
+
+:: Ravine {"position":"1200,500","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.5, ["E0", "E1", "E2", "E3", "E4"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Continue Along the Cliff|Cliff2]] <b>20% Risk</b>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: Stage0 {"position":"700,700","size":"100,100"}
+As you come down into the valley, you see your destination on the horizon, a holy site for your people. You're on the final stretch of your long journey. You see 3 clearly defined paths, one that follows a mountain pass and lies in the shade. Travelling this path will take longer for sure, but you're likely to be undisturbed on your travels. The most direct path is the valley, though what appears to be a bandit camp lies there. You'll almost certainly run into trouble on the way, but it's the most direct route. And lastly, you can continue along the dunes on the other side of the valley. It's more direct than the mountain pass, but bathed in the sun. If you're spotted, you could probably escape down into the valley.
+
+You're starting to run low on supplies.
+
+[[The Mountain Pass|MountainPass]] <b>25% Risk</b>
+[[The Valley|Valley0]] <b>90% Risk</b>
+[[The Dunes|Dunes0]] <b>60% Risk</b>
+
+<<include "hud">>
+
+
+:: Start {"position":"300,700","size":"100,100"}
 Describe walking through desert, hot desert sun.
 
 In the desert sand ahead, you see something gleaming. A computer of sorts?
@@ -158,7 +340,7 @@ this or next: explain resources in world.
 [[Next|GetComputer]]
 
 
-:: StoryBanner {"position":"100,2800","size":"100,100"}
+:: StoryBanner {"position":"100,700","size":"100,100"}
 <<nobr>>
 <br>
 <img src="Image/BoxTitle.png" width="90%">
@@ -167,20 +349,63 @@ this or next: explain resources in world.
 <</nobr>>
 
 
-:: StoryCaption {"position":"100,2900","size":"100,100"}
+:: StoryCaption {"position":"100,800","size":"100,100"}
 Created by Thom Mott for CMPM 80K @ UCSC
 
 
-:: StoryInit {"position":"100,2700","size":"100,100"}
-<<set $nextStage = "Stage1">>
+:: StoryInit {"position":"100,600","size":"100,100"}
 <<set $encounter = "E0">>
 <<set $ = 0>>
 <<set $health = 5>>
 <<set $items = 20>>
+<<set $spring = false>>
 <<cacheaudio "coinPickupAudio" "Audio/CoinPickup.mp3">>
 
 
-:: hud {"position":"100,2500","size":"100,100"}
+:: Valley0 {"position":"900,800","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(1.0, ["E3", "E5", "E6", "E8"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Continue along the valley floor|Cliff1]] <b>90% Risk</b>
+[[Continue along the valley floor|Valley1]] <b>90% Risk</b>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: Valley1 {"position":"1100,800","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(1.0, ["E3", "E5", "E6", "E8"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+[[Continue along the valley floor|Valley2]] <b>60% Risk</b>
+<<include "hud">>
+<</nobr>>
+
+
+:: Valley2 {"position":"1400,900","size":"100,100"}
+[[|End0]]
+
+
+:: Village {"position":"1600,800","size":"100,100"}
+Village
+
+[[Down the mountain path...|Valley2]] <b>60% Risk</b>
+<<include "hud">>
+
+
+:: hud {"position":"100,400","size":"100,100"}
 <<nobr>>
 <hr>
 <b>
@@ -213,3 +438,24 @@ Macro.add('modify', {
 		State.variables[varName] += amount;
     }
 });
+
+:: StoryStylesheet [stylesheet]
+#ui-bar-history {
+    display: none;
+}
+
+#story-title {display:none}
+
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+		opacity: 1;
+    }
+}
