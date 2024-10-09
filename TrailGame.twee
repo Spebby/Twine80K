@@ -1,0 +1,215 @@
+:: StoryTitle
+TrailGame
+
+
+:: StoryData
+{
+  "ifid": "E9299BEF-9A13-4923-950D-1A8F884F960C",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start",
+  "zoom": 1
+}
+
+
+:: Area0 {"position":"500,3000","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.25, ["E0", "E1", "E2", "E3", "E4"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: Area1 {"position":"600,3000","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.11, ["E3", "E5", "E6", "E8"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: Area2 {"position":"700,3000","size":"100,100"}
+<<nobr>>
+<<script>>
+State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E8", "E9"]);
+<</script>>
+
+<<if $encounter>>
+<<include $encounter>>
+<</if>><br>
+
+<<include "hud">>
+<</nobr>>
+
+
+:: Bazaar {"position":"800,2400","size":"200,200"}
+
+
+
+:: CompInfo {"position":"300,3000","size":"100,100"}
+Though cracked and dusty, it flickers on.
+
+describe the boot sequence.
+
+[[March onwards|Stage0]]
+
+
+:: E0 {"position":"300,2200","size":"100,100"}
+Bad event 0
+-1 resources
+<<modify "items" -1>>
+
+
+:: E1 {"position":"300,2300","size":"100,100"}
+Bad event 1
+-2 resources
+<<modify "items" -2>>
+
+
+:: E2 {"position":"300,2400","size":"100,100"}
+Bad event 2
+-1 resources
+<<modify "items" -1>>
+
+
+:: E3 {"position":"300,2500","size":"100,100"}
+Bad event 3
+-4 resources
+<<modify "items" -4>>
+
+
+:: E4 {"position":"300,2600","size":"100,100"}
+Bad event 4
+-3 resources
+<<modify "items" -3>>
+
+
+:: E5 {"position":"400,2200","size":"100,100"}
+Bad event 5
+-1 resources
+<<modify "items" -1>>
+
+
+:: E6 {"position":"400,2300","size":"100,100"}
+Bad event 6
+-1 resources
+<<modify "items" -1>>
+
+
+:: E7 {"position":"400,2400","size":"100,100"}
+Bad event 7
+-1 resources
+<<modify "items" -1>>
+
+
+:: E8 {"position":"400,2500","size":"100,100"}
+Bad event 8
+-1 resources
+<<modify "items" -1>>
+
+
+:: E9 {"position":"400,2600","size":"100,100"}
+Bad event 9
+-1 resources
+<<modify "items" -1>>
+
+
+:: GetComputer {"position":"500,2800","size":"100,100"}
+small handheld device
+it turns on
+
+[[Try it out|CompInfo]]
+[[March Forwards|Stage0]]
+
+
+:: Stage0 {"position":"700,2800","size":"100,100"}
+As you come down into the valley, you see a Bazaar on the horizon. You can see 3 paths to it something something explanation.
+
+[[Path 1|Area0]] <b>25% Risk</b>
+[[Path 2|Area1]] <b>11% Risk</b>
+[[Path 3|Area2]] <b>60% Risk</b>
+
+<<include "hud">>
+
+
+:: Stage1 {"position":"900,2800","size":"100,100"}
+wip
+
+
+:: Start {"position":"300,2800","size":"100,100"}
+Describe walking through desert, hot desert sun.
+
+In the desert sand ahead, you see something gleaming. A computer of sorts?
+
+this or next: explain resources in world.
+
+[[Next|GetComputer]]
+
+
+:: StoryBanner {"position":"100,2800","size":"100,100"}
+<<nobr>>
+<br>
+<img src="Image/BoxTitle.png" width="90%">
+<br>
+<hr>
+<</nobr>>
+
+
+:: StoryCaption {"position":"100,2900","size":"100,100"}
+Created by Thom Mott for CMPM 80K @ UCSC
+
+
+:: StoryInit {"position":"100,2700","size":"100,100"}
+<<set $nextStage = "Stage1">>
+<<set $encounter = "E0">>
+<<set $ = 0>>
+<<set $health = 5>>
+<<set $items = 20>>
+<<cacheaudio "coinPickupAudio" "Audio/CoinPickup.mp3">>
+
+
+:: hud {"position":"100,2500","size":"100,100"}
+<<nobr>>
+<hr>
+<b>
+Health: $health<br>
+Resources: $items<br>
+</b>
+<</nobr>>
+
+
+:: StoryScript [script]
+window.randomEvent = function(weight, stages) {
+	if (Math.random() > weight) {
+		return null;
+	}
+
+  	return stages[Math.floor(Math.random() * stages.length)];
+}
+
+Macro.add('modify', {
+	handler: function () {
+		if (this.args.length < 2) {
+          	return this.error("Must provide a variable name and an amount.");
+		}
+		const varName = this.args[0];
+      	const amount = Number(this.args[1]);
+		if (State.variables[varName] == undefined) {
+          	return this.error(`Variable $${varName} does not exist.`);
+        }
+
+		State.variables[varName] += amount;
+    }
+});
