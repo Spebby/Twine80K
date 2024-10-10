@@ -8,7 +8,7 @@ TrailGame
   "format": "SugarCube",
   "format-version": "2.37.3",
   "start": "Start",
-  "zoom": 0.6
+  "zoom": 1
 }
 
 
@@ -27,11 +27,9 @@ State.variables.encounter = randomEvent(1, ["Bazaar", "EmptyBazaar"]);
 
 
 :: Cliff0 {"position":"1100,650","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
-
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
@@ -39,11 +37,9 @@ State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 [[Follow the path|Cliff1]] <b>20% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Cliff1 {"position":"1300,700","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
@@ -55,11 +51,9 @@ State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 [[Follow the path|Cliff2]] <b>20% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Cliff2 {"position":"1500,600","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
@@ -71,7 +65,6 @@ State.variables.encounter = randomEvent(0.2, ["E0", "E1", "E2", "E3", "E4"]);
 [[Continue Along the Cliff|Village]] <b>20% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: CompInfo {"position":"500,900","size":"100,100"}
@@ -82,12 +75,7 @@ describe the boot sequence.
 [[March onwards|Stage0]]
 
 
-:: Dunes {"position":"1225,1125","size":"100,100"}
-
-
-
 :: Dunes0 {"position":"700,900","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E8", "E9"]);
 <</script>>
@@ -99,11 +87,9 @@ State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E8", "E9"]);
 [[Continue Along the Dunes|Dunes1]] <b>40% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Dunes1 {"position":"900,1000","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.4, ["E0", "E3", "E5", "E8", "E9"]);
 <</script>>
@@ -116,12 +102,11 @@ State.variables.encounter = randomEvent(0.4, ["E0", "E3", "E5", "E8", "E9"]);
 [[Head down into the Valley|Valley1]] <b>10% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Dunes2 {"position":"1100,1000","size":"100,100"}
 [[Plateu]] (Likely to meet the old man)
-[[Dunes]] (less likely but will learning about spring. may get lost forever)
+[[Wonder]] (less likely but will learning about spring. may get lost forever)
 
 
 :: E0 {"position":"300,100","size":"100,100"}
@@ -231,7 +216,6 @@ it turns on
 
 
 :: MountainPass {"position":"900,600","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.25, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
@@ -244,7 +228,6 @@ State.variables.encounter = randomEvent(0.25, ["E0", "E1", "E2", "E3", "E4"]);
 [[Head Through the Ravine|Ravine]] <b>50% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: OldMan {"position":"800,100","size":"100,100"}
@@ -299,11 +282,10 @@ outskirts of bazaar
 
 
 :: Plateu {"position":"1100,1125","size":"100,100"}
-
+The player will always come across the old man on this route.
 
 
 :: Ravine {"position":"1200,500","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.5, ["E0", "E1", "E2", "E3", "E4"]);
 <</script>>
@@ -315,7 +297,6 @@ State.variables.encounter = randomEvent(0.5, ["E0", "E1", "E2", "E3", "E4"]);
 [[Continue Along the Cliff|Cliff2]] <b>20% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Stage0 {"position":"700,700","size":"100,100"}
@@ -363,39 +344,33 @@ Created by Thom Mott for CMPM 80K @ UCSC
 
 
 :: Valley0 {"position":"900,800","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(1.0, ["E3", "E5", "E6", "E8"]);
 <</script>>
-
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
-[[Continue along the valley floor|Cliff1]] <b>90% Risk</b>
+[[Continue along the valley floor|Ravine]] <b>50% Risk</b>
 [[Continue along the valley floor|Valley1]] <b>90% Risk</b>
 
 <<include "hud">>
-<</nobr>>
 
 
 :: Valley1 {"position":"1100,800","size":"100,100"}
-<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(1.0, ["E3", "E5", "E6", "E8"]);
 <</script>>
-
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
 [[Continue along the valley floor|Valley2]] <b>60% Risk</b>
 <<include "hud">>
-<</nobr>>
 
 
 :: Valley2 {"position":"1400,900","size":"100,100"}
-[[|End0]]
+[[End0]]
 
 
 :: Village {"position":"1600,800","size":"100,100"}
@@ -403,6 +378,10 @@ Village
 
 [[Down the mountain path...|Valley2]] <b>60% Risk</b>
 <<include "hud">>
+
+
+:: Wonder {"position":"1225,1125","size":"100,100"}
+something about wondering across dunes. Player will come across fountain, and if luck permits, they have a higher chance of coming across the old man than normal.
 
 
 :: hud {"position":"100,400","size":"100,100"}
