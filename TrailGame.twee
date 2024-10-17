@@ -1,5 +1,5 @@
 :: StoryTitle
-TrailGame
+Trails
 
 
 :: StoryData
@@ -8,17 +8,17 @@ TrailGame
   "format": "SugarCube",
   "format-version": "2.37.3",
   "start": "Start",
-  "zoom": 1
+  "zoom": 0.6
 }
 
 
-:: Bazaar {"position":"1400,100","size":"100,100"}
-Bazaar
+:: Bazaar {"position":"1300,100","size":"100,100"}
+The moment you step into the bazaar, you're greeted by the calls of vendors, inviting you over to their stands. You can barely make out what they're saying as their voices drown each other out. Above you bright fabrics billow in the wind, and the smell of spice fills your nose. People bustle past you, busy with their own lives. You are tempted to barter with your remaining goods, but as the sun begins to set, you feel as though you can't stay for long.
 
-[[Outskirts]]
+[[Exit the bazaar|Outskirts]]
 
 
-:: BazaarTravel {"position":"1250,350","size":"100,100"}
+:: BazaarTravel {"position":"1150,350","size":"100,100"}
 <<script>>
 State.variables.encounter = randomEvent(1, ["Bazaar", "EmptyBazaar"]);
 <</script>>
@@ -26,8 +26,8 @@ State.variables.encounter = randomEvent(1, ["Bazaar", "EmptyBazaar"]);
 <<goto $encounter>>
 
 
-:: Cliff0 {"position":"1100,650","size":"100,100"}
-You decide to take the safer option. The mountain path narrows, but there's still plenty of room to stand on. To your right, you can see out across the valley. You can feel the hot wind rise from the valley, far gentler then that of the wind from the ravine. Across the valley you see the dunes, from the start of this treck. It seems so peaceful there, though you are glad to be in some shade. Looking down into the valley, you see a cluster of tents and huts, the bandit camp from earlier. You can see figures walking about the camp, busying themselves. A chilld runs down your spine, as a scout spots you from below, waving to you, fully aware that you are out of reach. You're glad you avoided the valley.
+:: Cliff0 {"position":"1000,600","size":"100,100"}
+You decide to take the safer option. The mountain path narrows, but there's still plenty of room to stand on. To your right, you can see out across the valley. You can feel the hot wind rise from the valley, far gentler than that of the wind from the ravine. Across the valley you see the dunes, from the start of this trek. It seems so peaceful there, though you are glad to be in some shade. Looking down into the valley, you see a cluster of tents and huts, the bandit camp from earlier. You can see figures walking about the camp, busying themselves. A chill runs down your spine, as a scout spots you from below, waving to you, fully aware that you are out of reach. You're glad you avoided the valley.
 
 <<script>>
 State.variables.encounter = randomEvent(0.2, ["E6", "E3", "E10", "E11"]);
@@ -36,50 +36,51 @@ State.variables.encounter = randomEvent(0.2, ["E6", "E3", "E10", "E11"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Follow the path|Cliff1]]
 <</if>>
 
 <<include "hud">>
 
 
-:: Cliff1 {"position":"1300,700","size":"100,100"}
-As you continue along the path, the camp fades from view and the trail begins to wind upwards. Though the rock is stable, the occasional lose stone makes to tread carefully. The cliffs become much more jagged, and the scenerey is replaced by more cliffs and jagged pillars of rock. Ahead of you the path stops, a rock wall stands before you. Seems like you could climb it.
+:: Cliff1 {"position":"1250,700","size":"100,100"}
+As you continue along the path, the camp fades from view and the trail begins to wind upwards. Though the rock is stable, the occasional loose stone makes you tread carefully. The cliffs become much more jagged, and the scenery is replaced by more cliffs and jagged pillars of rock. Ahead of you the path stops, a rock wall stands before you. Seems like you could climb it.
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Climb the rock wall|Cliff2]] <b>20% Risk</b>
 <</if>>
 
 <<include "hud">>
 
 
-:: Cliff2 {"position":"1500,600","size":"100,100"}
+:: Cliff2 {"position":"1400,600","size":"100,100"}
+<<nobr>>
 <<script>>
 State.variables.encounter = randomEvent(0.2, ["E9"]);
 <</script>>
 
 <<if $encounter>>
-<<include $encounter>>
-
-<<if $health > 0 || $items > 0>>
-You manage to stand, thankfully none of your organs were punctured. You really should sit down for awhile, but you know you have to bear the pain and carry on.
+  <<include $encounter>>
+  <<if $health > 0 && $items > 0>>
+  You manage to stand, thankfully none of your organs were punctured. You really should sit down for a while, but you know you have to bear the pain and carry on.<br>
+  <</if>>
 <</if>>
-<</if>>
 
-<<if $health > 0 || $items > 0>>
-As you summit the rock wall, your hands grasp the rough, uneven ground. Pulling yourself up, you notice that the terrain is even rougher up here, dotted with some shrubs and small patches of flowers. It's hard to get an even foothold here, evidently you're one of the few to venture this far.
+<<if $health > 0 && $items > 0>>
+As you summit the rock wall, your hands grasp the rough, uneven ground. Pulling yourself up, you notice that the terrain is even rougher up here, dotted with some shrubs and small patches of flowers. It's hard to get an even foothold here, evidently you're one of the few to venture this far.<br><br>
 
 [[Continue along the passl|Cliff3]] <b>20% Risk</b>
 <</if>>
+<</nobr>>
 
 <<include "hud">>
 
 
-:: Cliff3 {"position":"1700,500","size":"100,100"}
+:: Cliff3 {"position":"1600,500","size":"100,100"}
 <<nobr>>
 Continuing along the path, you carefully navigate through the rocky landscape. The terrain starts to become easier to walk along. 
-<<if $favine = false>>
-You see the cliff wall open up again, it's the ravine you passed through earlier. The bridge seems to have collapsed as you took the long way around.
+<<if $ravine = false>>
+You see the cliff wall open up again, it's the ravine you passed by earlier. The bridge seems to have collapsed as you took the long way around.
 <</if>>
 As you keep walking, something catches your eye. A small village made of timber and stone, nestled in the mountain. The cliff face smooths, sloping towards the village. A set of stairs have been carved out of it. You think you can hear some voices coming from the village.
 <</nobr>>
@@ -92,11 +93,15 @@ State.variables.encounter = randomEvent(0.2, ["E6", "E3", "E10", "E11"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Follow the trail down to the village|Village]]
 <</if>>
 
 <<include "hud">>
+
+
+:: Credits {"position":"2000,1100","size":"100,100"}
+Thank you for playing!
 
 
 :: Death {"position":"100,200","size":"100,100"}
@@ -106,7 +111,7 @@ As you slowly fade away, you hope that someone will reach it one day. That someo
 
 
 :: Dunes0 {"position":"700,900","size":"100,100"}
-You descide that the valley is too dangerous, and the cliff passage will be too much of a detour. The desert air blows stronger as you start to climb the dunes.
+You decide that the valley is too dangerous, and the cliff passage will be too much of a detour. The desert wind picks up as you ascend the dune. Each step harder than the last, as the sand engulfs your foot. A vast golden ocean before you, the sun beats down upon your skin. The wind, normally a pleasant surprise in the low desert, nearly blows your garments off, carrying with it the occasional sting of loose sand.
 
 <<script>>
 State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5"]);
@@ -116,15 +121,15 @@ State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Continue Along the Dunes|Dunes1]] <b>40% Risk</b>
 <</if>>
 
 <<include "hud">>
 
 
-:: Dunes1 {"position":"925,975","size":"100,100"}
-From atop the dune, the path splits again. You could head down into the valley, and continue there. You've passed the bandit camp now, so it should be safer. Or you could continue along the dune, and see if you can enter your homeland from the west instead.
+:: Dunes1 {"position":"900,900","size":"100,100"}
+As you reach the crest of the dune, you look around and see the vast desert unfold. The valley is nothing but a thin line, and the cliffs, though still prominent, are greatly diminished at this distance. The dunes ahead seem to shift in front of your eyes, though thankfully they seem to not be as tall as the dune you stand on.
 
 <<script>>
 State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E14"]);
@@ -134,24 +139,24 @@ State.variables.encounter = randomEvent(0.60, ["E0", "E3", "E5", "E14"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Continue Along the Dunes|Dunes2]] <b>30% Risk</b>
-[[Head down into the Valley|Valley2]] <b>40% Risk</b>
 <</if>>
 
 <<include "hud">>
 
 
-:: Dunes2 {"position":"1100,1000","size":"100,100"}
-The winds calm as you continue further from the valley, though a haze sets in to the east. You could travel through it, but you're uncertain you'd ever make it out. You could head further south still, onto a plateu, and wait out the haze.
+:: Dunes2 {"position":"1100,950","size":"100,100"}
+From atop the dune, the path splits again. You could head down into the valley, and continue there. You've passed the bandit camp now, so it should be safer. Or you could continue along the dune, and see if you can enter your homeland from the west instead, through a haze sets in above the dune. You could travel through it, but you're uncertain you'd ever make it out. You could head further south still, onto a plateau, and wait out the haze.
 
 <<script>>
 State.variables.encounter = randomEvent(0.60, ["E3", "E5"]);
 <</script>>
 
-<<if $health > 0 || $items > 0>>
-[[Head to the Plateu|Plateu]]
-[[Continue East|Spring]]
+<<if $health > 0 && $items > 0>>
+[[Head down into the Valley|Valley2]] <b>100% Risk</b>
+[[Head to the Plateau|Plateau]] <b>10% Risk</b>
+[[Continue East|Spring]] <b>20% Risk</b>
 <</if>>
 
 <<include "hud">>
@@ -159,73 +164,73 @@ State.variables.encounter = randomEvent(0.60, ["E3", "E5"]);
 
 :: E0 {"position":"300,100","size":"100,100"}
 <<nobr>>
-The winds take a sudden change of course, kicking up a ton of sand. You have to lay to the ground to avoid being swepped away, praying that you won't be burried by the sand.<br><br>
+The winds take a sudden change of course, kicking up a ton of sand. You have to lay to the ground to avoid being swept away, praying that you won't be buried by the sand.<br><br>
 
-As the winds clear, you find your back has been ripped open, and some of your previsions have been lost.<br>
+As the winds clear, you find your back has been ripped open, and some of your provisions have been lost.<br>
 <</nobr>>
-<<modify "items" -1>>
+<<modify "items" -2>>
 <<ORAssign "events" "1 << 0">>
 
 
 :: E1 {"position":"300,200","size":"100,100"}
 <<nobr>>
-You hear a loud noise behind you. A heard of Oryx rush towards you. You narrowly avoid being hit, but your bag is snagged as you duck for cover, and some of your provisions spill out onto the floor.<br>
+You hear a loud noise behind you. A herd of Oryx rush towards you. One hits you and you're thrown to the ground. Some of your food spills onto the desert floor and are trampled by the herd.<br>
 <</nobr>>
 <<modify "items" -2>>
+<<modify "health" -1>>
 <<ORAssign "events" "1 << 1">>
 
 
 :: E10 {"position":"500,100","size":"100,100"}
 <<nobr>>
-Bad event 10
+A large shadow is cast upon the path; a massive eagle is flying overhead. It dives down and attacks you, slashing your body, and taking some of your food. It flies towards a rocky outcrop on the cliff above, surely headed to its nest.
 <</nobr>>
-<<modify "items" -1>>
+<<modify "items" -3>>
+<<modify "health" -3>>
 <<ORAssign "events" "1 << 10">>
 
 
 :: E11 {"position":"500,200","size":"100,100"}
 <<nobr>>
-Bad event 11
+You come across a deep fissure in the path. With no other options, you jump, though you come up short. You manage to get a grip on a ledge before you fall too far, though your hand is cut in the process.
 <</nobr>>
-<<modify "items" -1>>
+<<modify "health" -2>>
 <<ORAssign "events" "1 << 11">>
 
 
 :: E12 {"position":"500,300","size":"100,100"}
 <<nobr>>
-You feel the ground shifting.
+You feel the ground shaking.<br>
 <</nobr>>
 <<ORAssign "events" "1 << 12">>
 
 
 :: E13 {"position":"500,400","size":"100,100"}
 <<nobr>>
-Your knees buckle as you approach your final destination. You have to leave some of your supplies behind.
+Though, for whatever reason, the air feels tense.
 
-<<if $items > 1>>
-<<modify "items" -1>>
-<</if>>
 <<ORAssign "events" "1 << 13">>
 <</nobr>>
 
 
-:: E14 {"position":"900,100","size":"100,100"}
+:: E14 {"position":"500,500","size":"100,100"}
 <<goto "OldMan">>
 [[OldMan]]
 <<ORAssign "events" "1 << 14">>
 
 
 :: E2 {"position":"300,300","size":"100,100"}
-<<nobr>>
-Unfortunately for you, the bandits spotted you. They spare your life, but take some of your supplies and leave you for dead.<br>
-<</nobr>>
+Unfortunately for you, the bandits spot you. You make a break for it, but the terrain works against you. The coarse sand makes it hard to run, and the terrain flattens out enough that you can't sneak away. The weight of your pack slows you down, and your lungs burn as you keep pushing yourself forwards.
+
+You feel a sudden, blunt pain in your shoulder. One of the bandits hit you with their sling. Your knees buckle and you fall to the ground, moments later surrounded by bandits. The bandits speak amongst themselves, though you do not understand their tongue. Though you expect the worst, the bandits take mercy on you, and let you go in exchange for some of your provisions.
+
 <<modify "items" -5>>
 <<ORAssign "events" "1 << 2">>
 
 
 :: E3 {"position":"300,400","size":"100,100"}
 <<nobr>>
-A band of scorpions appear from behind a small rocky outcrop. One stings you as you try to get away.<br>
+A band of scorpions appears from behind a small rocky outcrop. One stings you as you try to get away.<br>
 <</nobr>>
 <<modify "health" -1>>
 <<ORAssign "events" "1 << 3">>
@@ -233,7 +238,7 @@ A band of scorpions appear from behind a small rocky outcrop. One stings you as 
 
 :: E4 {"position":"300,500","size":"100,100"}
 <<nobr>>
-You see some trees in the distance, there must be an oasis nearby. As you approach the air thickens and you can feel yourself having trouble breathing. As you approach you start coughing intensely. You decide to retreat as you start to see a haze build on the ground. Even as you get away from the Oasis, you still have some trouble breathing.<br>
+You see some trees in the distance, there must be an oasis nearby. As you approach, the air thickens, and you can feel yourself having trouble breathing. As you approach, you start coughing intensely. You decide to retreat as you start to see a haze build on the ground. Even as you get away from the Oasis, you still have some trouble breathing.<br>
 <</nobr>>
 <<modify "health" -2>>
 <<ORAssign "events" "1 << 4">>
@@ -294,33 +299,61 @@ An intense wind strikes the ravine. You're able to weather it, but some of your 
 
 :: E9 {"position":"400,500","size":"100,100"}
 <<nobr>>
-As you climb up the rock wall, you hand slips, and you fall onto your back. You feel one of your ribs crack as you hit the ground.
+As you climb up the rock wall, your hand slips, and you fall onto your back. You feel one of your ribs crack as you hit the ground.
 <</nobr>>
 <<modify "health" -3>>
 <<ORAssign "events" "1 << 9">>
 
 
-:: EmptyBazaar {"position":"1400,300","size":"100,100"}
-EmptyBazaar
+:: EmptyBazaar {"position":"1300,225","size":"100,100"}
+The bazaar is silent. Stalls stand deserted, their awnings torn and faded by the wind. As you walk through you keep trying to figure out what happened here, there isn't any sign of life here, buildings stand completely deserted, no furniture, pottery or scraps left over. Has anyone lived here?
 
-[[Outskirts]]
+[[Exit the bazaar|Outskirts]]
 
 
-:: End0 {"position":"1600,1000","size":"100,100"}
-As you pass through the gates, the sand seems to change. The sand feels younger here--it's not as fine. In some places it even feels more like clay. As you walk through what would have been the main prominarde, the remains you come across seem to lack any entrances.
+:: End0 {"position":"1600,900","size":"100,100"}
+As you pass through the gates, the sand seems to change. The sand feels younger here--it's not as fine. In some places, it even feels more like clay. As you walk through what would have been the main promenade, you take notice of the ruins that line the street. Their shapes confuse you, none have any entrances. Many of the ruins seem too small for any business or home to fit in, and they're spaced so far apart that you can hardly believe this was the grand capital.
 
-[[Inspect the building|is0]]
-
-[[End1]]
+[[Continue along the path|End1]]
 
 <<include "hud">>
 
 
-:: End1 {"position":"1800,1000","size":"100,100"}
+:: End1 {"position":"1800,900","size":"100,100"}
+At the end of the promenade, your gaze is set upon a large stepped building. Ascending its steps, you find that at its summit there is a passage that heads deeper into the building. You expect some writing or ornaments on the walls, but find them bare, all except some torches which provide a dim light.
+
+As you descend the walls begin to change, the rough stone gives way to a smoother stone, as the path widens. The sounds of your steps become muffled, swallowed by the darkness. As you step through the doorway ahead of you, the view takes your breath away. The room opens into a cavern so large that you can't see the ceiling. A colossal metropolis extends before you, preserved and untouched by the sands that have buried it above. The structures you had seen on the surface were nothing but the crowns of some of the buildings that lay below.
+
+[[Continue|End2]]
+
+<<include "hud">>
 
 
+:: End2 {"position":"2000,900","size":"100,100"}
+You peer into some of the buildings as you walk along one of the streets, guided only by faint torchlight. The rooms are decorated, though no one appears to be here at the moment. The stone of these buildings are different from the stone that made up the entrance. You surmise that the entrance must have been built sometime after the city was buried.
 
-:: MountainPass {"position":"900,600","size":"100,100"}
+As you continue through the street, you hear whispers amongst you. People live down here. You decide to shout something in the direction of the whispers, and they fall silent.
+
+[[Continue|End3]]
+
+<<include "hud">>
+
+
+:: End3 {"position":"1600,1100","size":"100,100"}
+Shortly thereafter, figures begin to emerge from the shadows. They speak to you in a tongue that you can barely understand, though one that is very familiar to the one you speak. "Am I home?" you ask. "You are." At least, that's what you think the figure in front of you said.
+
+"Stay," another figure urges, their voice soft yet firm. As you listen to them you see more and more lights emerge from the surrounding buildings, as their residents open the windows. The figures in front of you turn and beckon you to follow.
+
+[[Follow|End4]]
+
+
+:: End4 {"position":"1800,1100","size":"100,100"}
+As you follow, you ask them who they are, though they do not answer you directly. They ask you who you are, though you are unsure what to say. You tell them of your journey here, and you tell them that you must go back, and tell your people what you have found. "You have come far, but you do not need to leave." You're puzzled by their words, how else will your people know of what you found? "Soon, they will all know. We will come to them soon." Before you can ask what they mean, you are brought to a tunnel, and you understand. "Which way did you journey from?"
+
+[[The End|Credits]]
+
+
+:: MountainPass {"position":"800,500","size":"100,100"}
 As you hike up the rugged mountain trail, the cliff wall opens up before you, a narrow entrance to a ravine opens before you. A gust of wind howls deep within the pass. You can see a rickety wooden bridge stretch across the deep drop. To the east, the mountain pass continues. Though less direct, it's likely to be much safer than the ravine.
 
 <<script>>
@@ -331,7 +364,7 @@ State.variables.encounter = randomEvent(0.25, ["E0", "E3", "E6"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Follow the path|Cliff0]] <b>20% Risk</b>
 [[Head Through the Ravine|Ravine]] <b>50% Risk</b>
 <</if>>
@@ -339,65 +372,51 @@ State.variables.encounter = randomEvent(0.25, ["E0", "E3", "E6"]);
 <<include "hud">>
 
 
-:: OldMan {"position":"1100,100","size":"100,100"}
+:: OldMan {"position":"1000,100","size":"100,100"}
 A cloaked man stands before you.
 
 [[Who are you?|Old_Info]]
-[[Get out of my way.|Old_Agg]]
 <<ORAssign "events" "1 << 14">>
 
 
-:: Old_Agg {"position":"1250,225","size":"100,100"}
-He looks at you with some sadness. In the blink of an eye he's gone.
-
-[[EmptyBazaar]]
+:: Old_DontKnow {"position":"1000,350","size":"100,100"}
+"You don't know? Such a shame." The old man says, smiling to himself. For a moment you feel yourself lose focus, drifting into your mind. When you snap back to your senses, you see no trace of the old man. As you glance beyond where he stood, you notice a [[bazaar|BazaarTravel]]. Was it always there?
 
 
-:: Old_DontKnow {"position":"1100,350","size":"100,100"}
-player: I dont know anything about that
-
-man: ah, no worries child.
-
-man fades away. Nothing else to do
-
-You see a [[Bazaar|BazaarTravel]] behind where he stood. Was it always there?
-
-
-:: Old_Info {"position":"1100,225","size":"100,100"}
-the man reveals self to be an old traveller
-
-says has just come from bazaar; looking for ancient spring
+:: Old_Info {"position":"1000,225","size":"100,100"}
+"Just an old man, looking for an ancient spring."
 
 <<if $spring>>
-[[An Ancient Spring?|Old_DontKnow]]
-<<else>>
 [[I know where you can find one.|Old_Know]]
+<<else>>
+[[An Ancient Spring?|Old_DontKnow]]
 <</if>>
 
 
-:: Old_Know {"position":"1250,100","size":"100,100"}
-[[Bazaar]]
+:: Old_Know {"position":"1150,100","size":"100,100"}
+"In the dunes behind us, you say?" the old man chuckles, as he raises a withered hand. "Look behind you, there are no such dunes." You turn to glance over your shoulder, and sure enough, the dunes are still there, stretching endlessly upon the horizon. But when you turn back, the old man is gone. In his place stands a bustling bazaar. Was it always there?
+
+[[Check out the Bazaar|Bazaar]]
 
 
-:: Outskirts {"position":"1600,200","size":"100,100"}
-As you leave the Bazaar, you look forwards. The capital is in sight now, you're nearly home.
+:: Outskirts {"position":"1500,200","size":"100,100"}
+Stepping outside the bazaar, you rack your brain as to where you are. You could have sworn you didn't see a bazaar as you surveyed the land earlier, and there was no bazaar marked on any of the maps you reviewed before you set out on your journey. Surely, something like this would have stood out to you. In fact you don't see any of the landmarks you have become acquainted with during your travels. The dunes seem far smaller than before, and the cliffs are nowhere to be seen.
+
+[[Where does this trail go?|Valley2]] <b>100% Risk</b>
 
 
-[[Where does this trail go?|Valley2]] <b>60% Risk</b>
+:: Plateau {"position":"1000,1100","size":"100,100"}
+Walking onto the plateau, the weather grows still. You can see some animals off in the distance, though not clearly enough to tell what they are. As far as you can tell, there's nothing else around you. Looking back towards the dunes, you seemed to have made the right decision to go south, as the haze had strengthened into a sandstorm. You'll probably be waiting awhile if you stay here, you may as well try to head east.
 
-
-:: Plateu {"position":"1100,1125","size":"100,100"}
-Walking onto the plateu, the weather grows still. You can see some animals off in the distance, though not clearly enough to tell what they are. As far as you can tell, there's nothing else around you. Looking back towards the dunes, you seemed to have made the right decision to go south, as the haze has strengthened into a sandstorm. You'll probably be waiting awhile if you stay here, you may as well try to head east.
-
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Head East|E14]]
 <</if>>
 
 <<include "hud">>
 
 
-:: Ravine {"position":"1300,500","size":"100,100"}
-The bridge groans benath your feet, creaking as though it may give way. The whistle of the wind rings through the entire ravine, reverberating off of the steep cliff walls. The far side of the bridge is insight, but every step feels more uncertain. You pray that the bridge holds.
+:: Ravine {"position":"1200,500","size":"100,100"}
+The bridge groans beneath your feet, creaking as though it may give way. The whistle of the wind rings through the entire ravine, reverberating off of the steep cliff walls. The far side of the bridge is in sight, but every step feels more uncertain. You pray that the bridge holds.
 
 <<script>>
 State.variables.encounter = randomEvent(0.5, ["E7", "E8"]);
@@ -407,7 +426,7 @@ State.variables.encounter = randomEvent(0.5, ["E7", "E8"]);
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Continue Along the Cliff|Cliff3]] <b>20% Risk</b>
 <</if>>
 
@@ -415,12 +434,12 @@ State.variables.encounter = randomEvent(0.5, ["E7", "E8"]);
 <<set $ravine = true>>
 
 
-:: Spring {"position":"1300,1100","size":"100,100"}
-You decide to press on, and over the dune. Below you, you see an old spring. The air cools as you approach the spring, the grey brick walls surrounding it appear weathered, sand lodged between the cracks. This spring has been battered by the elements for a long time, perhaps centuries. In the heart of the spring stands a fountain, with a modest amount of crystal-clear water at its base. A gentle trickle flows from the mouths at the fountain's sides. You descide to drink from the fountain. You feel somewhat restored; you have no idea when the next time you'll come across water is.
+:: Spring {"position":"1250,1000","size":"100,100"}
+You decide to press on, and over the dune. Below you, you see an old spring. The air cools as you approach the spring, the grey brick walls surrounding it appear weathered, sand lodged between the cracks. This spring has been battered by the elements for a long time, perhaps centuries. In the heart of the spring stands a fountain, with a modest amount of crystal-clear water at its base. A gentle trickle flows from the mouths at the fountain's sides. You decide to drink from the fountain. You feel somewhat restored; you have no idea when the next time you'll come across water is.
 
 As you leave the spring, the haze sets in once again, yet continues to strengthen. You can't see the spring behind you anymore. As the haze strengthens into a full sandstorm, you have no choice but to try to weather it.
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 [[Continue East|Wonder]]
 <</if>>
 <<if $health < 7>>
@@ -432,15 +451,15 @@ As you leave the spring, the haze sets in once again, yet continues to strengthe
 
 
 :: Stage0 {"position":"700,700","size":"100,100"}
-As you come down into the valley, you see your destination on the horizon, a holy site for your people. You're on the final stretch of your long journey. You see 3 clearly defined paths, one to the north east, that follows a mountain pass and lies in the shade. Travelling this path will take longer for sure, but you're likely to be undisturbed on your travels. The most direct path is east, through the valley, though what appears to be a bandit camp lies there. You'll almost certainly run into trouble on the way, but it's the most direct route. And lastly, you can continue south, along the dunes on the other side of the valley. It's more direct than the mountain pass, but bathed in the sun. If you're spotted, you could probably escape down into the valley.
+As you come down into the valley, you see your destination on the horizon, the homeland for your people. You're on the final stretch of your long journey. You see 3 clearly defined paths, one to the north-east, that follows a mountain pass and lies in the shade. Travelling this path will take longer, for sure, but you're likely to be undisturbed on your travels. The most direct path is east, through the valley, though what appears to be a bandit camp lies there. You'll almost certainly run into trouble on the way, but it's the most direct route. And lastly, you can continue south, along the dunes on the other side of the valley. It's more direct than the mountain pass, but bathed in the sun. If you're spotted, you could probably escape down into the valley.
 
 You're starting to run low on supplies.
-
-<<if $health > 0 || $items > 0>>
-[[The Mountain Pass|MountainPass]] <b>25% Risk</b>
-[[The Valley|Valley0]] <b>90% Risk</b>
-[[The Dunes|Dunes0]] <b>60% Risk</b>
-<</if>>
+<<nobr>>
+<br>
+[[The Mountain Pass|MountainPass]] <b>25% Risk</b><br>
+[[The Valley|Valley0]] <b>90% Risk</b><br>
+[[The Dunes|Dunes0]] <b>60% Risk</b><br>
+<</nobr>>
 
 <<include "hud">>
 
@@ -448,44 +467,38 @@ You're starting to run low on supplies.
 :: Start {"position":"500,700","size":"100,100"}
 The desert sun is hot, and unforgiving.
 
-You've been walking for days now, on a pilgramage many of your people never get the chance to make. Your homelands have long since been burried under sand, from decades of sandstorms. The memories of this land have long since been forgotten, but, perhaps you'll find something along your way.
+You've been walking for days now, on a pilgrimage many of your people never get the chance to make. Your homelands have long since been buried under sand, from decades of sandstorms. The memories of this land have long since been forgotten, but, perhaps you'll find something along your way.
 
 [[Next|Stage0]]
 
 
-:: StoryBanner {"position":"100,700","size":"100,100"}
-<<nobr>>
-<br>
-<img src="Image/BoxTitle.png" width="90%">
-<br>
-<hr>
-<</nobr>>
-
-
-:: StoryCaption {"position":"100,800","size":"100,100"}
+:: StoryCaption {"position":"100,700","size":"100,100"}
 Created by Thom Mott for CMPM 80K @ UCSC
 
 
 :: StoryInit {"position":"100,600","size":"100,100"}
 <<set $encounter = "E0">>
-<<set $health = 5>>
-<<set $items = 15>>
+<<set $health = 8>>
+<<set $items = 10>>
 <<set $spring = false>>
 <<set $ravine = false>>
 <<set $events = 0>>
-<<cacheaudio "coinPickupAudio" "Audio/CoinPickup.mp3">>
+<<set $wonder = 0>>
 
 
-:: Valley0 {"position":"900,800","size":"100,100"}
+:: Valley0 {"position":"900,750","size":"100,100"}
+After consideration, you decide the only sensible option is the valley. The other paths may be safer, but you don't have enough food to make the trip, if the paths are longer than you anticipate. As you enter into the valley you know you have to be more careful, this is hostile territory. You keep low and your senses high.
+
+You see the bandit camp in the distance, a loose collection of tents and huts. Several towers adorn its walls, with scouts watching the valley. Thankfully, the terrain slopes just enough that if you were to crawl, you may be able to make it between enough cover to go unseen.
+
 <<script>>
-State.variables.encounter = randomEvent(1.0, ["E0", "E1", "E2", "E3", "E5"]);
+State.variables.encounter = randomEvent(0.9, ["E0", "E1", "E2", "E3", "E5"]);
 <</script>>
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
-[[Continue along the valley floor|Ravine]] <b>50% Risk</b>
+<<if $health > 0 && $items > 0>>
 [[Continue along the valley floor|Valley1]] <b>90% Risk</b>
 <</if>>
 
@@ -493,70 +506,89 @@ State.variables.encounter = randomEvent(1.0, ["E0", "E1", "E2", "E3", "E5"]);
 
 
 :: Valley1 {"position":"1100,800","size":"100,100"}
+Relief washes over you, you were able to sneak past the camp. Though you know the bandits could still see you here, so you know you should be careful.
+
 <<script>>
-State.variables.encounter = randomEvent(1.0, ["E3", "E5", "E6", "E8", "E14"]);
+State.variables.encounter = randomEvent(0.9, ["E3", "E5", "E6", "E8", "E14"]);
 <</script>>
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
 
-<<if $health > 0 || $items > 0>>
-[[Continue along the valley floor|Valley2]] <b>60% Risk</b>
+<<if $health > 0 && $items > 0>>
+[[Continue along the valley floor|Valley2]] <b>100% Risk</b>
 <</if>>
 
 <<include "hud">>
 
 
 :: Valley2 {"position":"1400,900","size":"100,100"}
+<<nobr>>
+Before you stand twin arches, the gates of the former capital. Your journey is at an end now.
+
 <<script>>
-State.variables.encounter = randomEvent(1.0, ["E5", "E12", "E13"]);
+State.variables.encounter = randomEvent(1.0, ["E12", "E13"]);
 <</script>>
 
 <<if $encounter>>
 <<include $encounter>>
 <</if>><br>
+<</nobr>>
 
-Before you stands twin arches, the gates of the former capital.
-
-<<if $health > 0 || $items > 0>>
-[[End0]]
+<<if $health > 0 && $items > 0>>
+[[Walk through the arches|End0]]
 <</if>>
 
 <<include "hud">>
 
 
-:: Village {"position":"1600,800","size":"100,100"}
+:: Village {"position":"1600,700","size":"100,100"}
 As you make your way towards the village, a sense of unease overtakes you. The sounds of voices fade to an eerie silence. As you walk through the arch adorning the main street of the village, you can tell the village is deserted. Continuing down the street you see many open doors, swinging slowly on their hinges, creaking in the breeze. Peering into one building, all you can find are some overturned chairs, it's been picked clean.
 
-You make sure to check every building as you continue through the village, the sight is the same for each. Either all the inhabitence left, or they were picked off by bandits. You sigh to yourself, at least there's no one here to stop your progress. As you cross through the arch at the other end of the village, you can see the valley once again.
+You make sure to check every building as you continue through the village, the sight is the same for each. Either all the inhabitants left, or they were picked off by bandits. You sigh to yourself, at least there's no one here to stop your progress. As you cross through the arch at the other end of the village, you can see the valley once again.
 
-<<if $health > 0 || $items > 0>>
-[[Down the mountain path...|Valley2]] <b>60% Risk</b>
+<<if $health > 0 && $items > 0>>
+[[Down the mountain path...|Valley2]] <b>100% Risk</b>
 <</if>>
 
 <<include "hud">>
 
 
-:: Wonder {"position":"1300,1300","size":"100,100"}
+:: Wonder {"position":"1200,1200","size":"100,100"}
+<<if $wonder > 7>>
+<<goto endWonder>>
+<</if>>
+
 The wind batters you.
 
 <<script>>
 State.variables.encounter = randomEvent(0.15, ["E14"]);
 <</script>>
 
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 <<modify "health" -1>>
 [[Press on|Wonder]]
 <</if>>
 
 <<include "hud">>
+<<modify "wonder" 1>>
+
+
+:: endWonder {"position":"1400,1100","size":"100,100"}
+The wind doesn't let up. You don't know how long you've been walking for. You left everything behind to come here. As day turns to night and to day once again, the storm still rages on. You tried turning around, going back the way you came, though your footsteps have long since disappeared. You are trapped here.
+
+[[The End|endWonder1]]
+
+
+:: endWonder1 {"position":"1400,1225","size":"100,100"}
+Your mortal form fades, yet you still walk. Flesh falls from bone, yet you still walk. The storm rages on, yet you still walk. Your body continues on without you, wandering the wastes forever more.
 
 
 :: hud {"position":"100,400","size":"100,100"}
 <<nobr>>
 <hr>
 <b>
-<<if $health > 0 || $items > 0>>
+<<if $health > 0 && $items > 0>>
 Health: $health<br>
 Resources: $items<br>
 <<else>>
@@ -565,14 +597,6 @@ It's the end of the road, for you.<br>
 <</if>>
 </b>
 <</nobr>>
-
-
-:: is0 {"position":"1600,1125","size":"100,100"}
-As you enter through a ruined wall, the building confuses you further. No matter how much sand you move, there doesn't seem to be any floor. It doesn't seem like anyone could have spent any time in this building. Was it just decor?
-
-[[Continue|End0]]
-
-<<include "hud">>
 
 
 :: StoryScript [script]
@@ -586,7 +610,7 @@ window.randomEvent = function(weight, stages) {
       	let i = Math.floor(Math.random() * stages.length);
 	 	target = stages[i];
   		stages.splice(i, 1);
-  	} while (!(State.variables["events"] & 1 << Number(target.substring(1))) && stages.length > 0);
+  	} while ((State.variables["events"] & 1 << Number(target.substring(1))) && stages.length > 0);
 	// this while statement assumes that all stages are of form "E#"
 
 	if (stages.length == 0) {
@@ -633,9 +657,6 @@ Macro.add('ORAssign', {
 #ui-bar-history {
     display: none;
 }
-
-#story-title {display:none}
-
 
 .fade-in {
     animation: fadeIn 1s forwards;
